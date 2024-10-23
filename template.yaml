@@ -1,0 +1,18 @@
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  UpdateDownloadsCountFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      CodeUri: src/
+      Timeout: 30
+      Environment:
+        Variables:
+          GOOGLE_APPLICATION_CREDENTIALS: "/var/task/firebay-6554f-54d04c3b13d2.json"
+      Events:
+        UpdateCountSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: rate(5 minutes)
